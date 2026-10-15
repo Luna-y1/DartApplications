@@ -1,15 +1,28 @@
+//import 'package:demopcpsseca/pages/detailpage.dart';
 import 'package:flutter/material.dart';
+import 'package:myflutterprojects/controller/apicall.dart';
+import 'detailpage.dart';
+
 
 class dashboard extends StatefulWidget {
   const dashboard({super.key});
 
   @override
-  State<dashboard> createState() => _dashboardState();
+  State<dashboard> createState() => dashboardState();
 }
 
-class _dashboardState extends State<dashboard> {
-  horizontalitem(size,String title, url, date){
+class dashboardState extends State<dashboard> {
+
+  horizontalitem(size, String title, url, date){
     return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (context) => detailpage(),
+          ),
+        );
+      },
+
 
       child: Stack(
         children: [
@@ -21,7 +34,7 @@ class _dashboardState extends State<dashboard> {
               color: Colors.grey,
               borderRadius: BorderRadius.circular(20),
             ),
-            width: size.width/1.5,
+            width: size.width/1.3,
 
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
@@ -33,7 +46,7 @@ class _dashboardState extends State<dashboard> {
           Container(
             margin: EdgeInsets.only(left: 10,right: 10,top: 8),
             height: size.height/4.5,
-            width: size.width/1.5,
+            width: size.width/1.3,
             decoration: BoxDecoration(
               color: Colors.black26,
               borderRadius: BorderRadius.circular(20),
@@ -41,13 +54,13 @@ class _dashboardState extends State<dashboard> {
           ),
           Positioned( bottom: 40,left: 30,
               child: Container(width: size.width/2,
-                  child: Text("L5 pcps news news news happy dashian L5 pcps news news news happy dashianL5 pcps news news news happy dashian",
+                  child: Text(title,
                     overflow: TextOverflow.ellipsis,maxLines: 2,
                     style: TextStyle(color: Colors.white),)
               )),
           Positioned( bottom: 20,left: 30,
               child: Container(width: size.width/2,
-                  child: Text("Sept 30, 2026",
+                  child: Text(date,
                     overflow: TextOverflow.ellipsis,maxLines: 1,
                     style: TextStyle(color: Colors.white),)
               )),
@@ -58,11 +71,10 @@ class _dashboardState extends State<dashboard> {
         ],
       ),
     );
-
   }
 
-  verticalllist(size, String title, url, date, source){
-    return Container(
+  static verticalllistitem(size,String title, url,date,source){
+    return  Container(
       margin: EdgeInsets.all(15),
       child: Row(
         children: [
@@ -103,7 +115,7 @@ class _dashboardState extends State<dashboard> {
               ),
               Container(
                 margin: EdgeInsets.all(15),
-                width: size.width/2.2,
+                width: size.width/2.1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -125,6 +137,12 @@ class _dashboardState extends State<dashboard> {
       ),
     );
   }
+@override
+void initState() {
+    // TODO: implement initState
+    super.initState();
+    Apicall().getnewsapidata();
+  }
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
@@ -142,15 +160,19 @@ class _dashboardState extends State<dashboard> {
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  horizontalitem(size," L5 pcps news news news happy dashian L5 pcps news news news happy dashianL5 pcps news news news happy dashian",
+                  // horizontalitem(size, String title, url, date){
+                  horizontalitem(size,
+                      "Happy Dashain",
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                      "02 Feb"),
-                  horizontalitem(size," L5 pcps news news news happy tihar L5 pcps news news news happy dashianL5 pcps news news news happy dashian",
+                      "05, FEB 2026"),
+                  horizontalitem(size,
+                      "Happy tihar",
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                      "02 Feb"),
-                  horizontalitem(size," L5 pcps news news news happy Chhat L5 pcps news news news happy dashianL5 pcps news news news happy dashian",
+                      "02, FEB 2026"),
+                  horizontalitem(size,
+                      "Happy chatt",
                       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                      "02 Feb"),
+                      "09, FEB 2026"),
                 ],
               ),
             ),
@@ -161,24 +183,22 @@ class _dashboardState extends State<dashboard> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
+                    verticalllistitem(size,
+                        "PCPS DASHAIN FEST",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
+                        "02 FEB 2026", "PCPS NEWS"),
+                    verticalllistitem(size,
+                        "PCPS DASHAIN FEST",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
+                        "02 FEB 2026", "PCPS NEWS"),
+                    verticalllistitem(size,
+                        "PCPS DASHAIN FEST",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
+                        "02 FEB 2026", "PCPS NEWS"),
+                    verticalllistitem(size,
+                        "PCPS DASHAIN FEST",
                         "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
-                    verticalllist(size, "Happy Dashain Everyone Celebrations ",
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                        "02 Feb","PCPS.com"),
+                        "02 FEB 2026", "PCPS NEWS")
 
                   ],
                 ),
