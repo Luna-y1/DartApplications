@@ -1,119 +1,95 @@
-import 'package:flutter/material.dart';
-import '../Pages/Dashboard.dart';
+class news {
+  String? status;
+  int? totalResults;
+  List<Articles>? articles;
 
+  news({this.status, this.totalResults, this.articles});
 
-class detailpage extends StatefulWidget {
-  detailpage({super.key});
+  news.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
+    totalResults = json['totalResults'];
+    if (json['articles'] != null) {
+      articles = <Articles>[];
+      json['articles'].forEach((v) {
+        articles!.add(new Articles.fromJson(v));
+      });
+    }
+  }
 
-  @override
-  State<detailpage> createState() => detailpageState();
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    data['totalResults'] = this.totalResults;
+    if (this.articles != null) {
+      data['articles'] = this.articles!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
-class detailpageState extends State<detailpage> {
+class Articles {
+  Source? source;
+  String? author;
+  String? title;
+  String? description;
+  String? url;
+  String? urlToImage;
+  String? publishedAt;
+  String? content;
 
+  Articles(
+      {this.source,
+        this.author,
+        this.title,
+        this.description,
+        this.url,
+        this.urlToImage,
+        this.publishedAt,
+        this.content});
 
-  @override
-  Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(height: 55,),
-            Stack(
-              children: [
-                Container(
-                  height: size.height/4,
-                  width: size.width,
-                  child: Image.network(fit: BoxFit.cover
-                      ,"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10"),
-                ),
-                Container(
-                  height: size.height/4,
-                  width: size.width,
-                  color: Colors.black45,
-                ),
-                GestureDetector(
-                  onTap:() {
-                    Navigator.of(context).pop();
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Icon(Icons.arrow_back,
-                      color: Colors.white,size: 40,),
-                  ),
-                ),
-                Positioned(
-                  right: 5,
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Icon(Icons.share,
-                      color: Colors.white,size: 40,),
-                  ),
-                ),
-                Container(
-                  height: size.height/4,
-                  child: Center(
-                    child: Icon(Icons.play_circle_fill,
-                      size: 60,
-                      color: Colors.white,),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(height: 15,),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("Happy Dashain Everyone".toUpperCase(),
-                style: TextStyle(fontSize: 20),maxLines: 2,),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0,right: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text("Author Name"),
-                  Text("02 02 2026")
-                ],),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("Happy Dashain, Happy Dashain, Happy Dashain,"
-                  "Happy Dashain,"
-                  "Happy Dashain, Happy Dashain, Happy Dashain, Happy Dashain,"
-                  "Happy Dashain,"
-                  "Happy Dashain,"),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0,right: 15),
-              child: Divider(),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Text("Related Videos", style: TextStyle(fontSize: 18),),
-            ),
+  Articles.fromJson(Map<String, dynamic> json) {
+    source =
+    json['source'] != null ? new Source.fromJson(json['source']) : null;
+    author = json['author'];
+    title = json['title'];
+    description = json['description'];
+    url = json['url'];
+    urlToImage = json['urlToImage'];
+    publishedAt = json['publishedAt'];
+    content = json['content'];
+  }
 
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.source != null) {
+      data['source'] = this.source!.toJson();
+    }
+    data['author'] = this.author;
+    data['title'] = this.title;
+    data['description'] = this.description;
+    data['url'] = this.url;
+    data['urlToImage'] = this.urlToImage;
+    data['publishedAt'] = this.publishedAt;
+    data['content'] = this.content;
+    return data;
+  }
+}
 
-            dashboardState.verticalllistitem(size,
-                "PCPS DASHAIN FEST",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                "02 FEB 2026", "PCPS NEWS"),
-            dashboardState.verticalllistitem(size,
-                "PCPS DASHAIN FEST",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                "02 FEB 2026", "PCPS NEWS"),
-            dashboardState.verticalllistitem(size,
-                "PCPS DASHAIN FEST",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                "02 FEB 2026", "PCPS NEWS"),
-            dashboardState.verticalllistitem(size,
-                "PCPS DASHAIN FEST",
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjZEcP2NkJQgEzAbBaG49jkD5TOG9hI9VALB1a_-vXlQ&s=10",
-                "02 FEB 2026", "PCPS NEWS"),
-          ],
-        ),
-      ),
-    );
+class Source {
+  String? id;
+  String? name;
+
+  Source({this.id, this.name});
+
+  Source.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    return data;
   }
 }
